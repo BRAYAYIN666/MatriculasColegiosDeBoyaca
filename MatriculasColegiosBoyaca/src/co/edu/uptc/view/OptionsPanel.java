@@ -20,6 +20,7 @@ public class OptionsPanel extends JPanel {
 		initMetadata();
 		initComponents();
 		addComponents();
+		initListeners();
 	}
 
 	private void addComponents() {
@@ -41,13 +42,37 @@ public class OptionsPanel extends JPanel {
 
 	private void initComponents() {
 		departmentBtn = createBtn("Departamento");
+		departmentBtn.setBackground(new Color(0, 157, 255));
+
 		municipalityBtn = createBtn("Municipio");
+		municipalityBtn.setBackground(new Color(68, 212, 242));
+
 		institutionBtn = createBtn("Institución");
+		institutionBtn.setBackground(new Color(68, 212, 242));
+	}
+
+	private void initListeners() {
+		departmentBtn.addActionListener(e -> {
+			departmentBtn.setBackground(new Color(0, 157, 255));
+			municipalityBtn.setBackground(new Color(68, 212, 242));
+			institutionBtn.setBackground(new Color(68, 212, 242));
+		});
+
+		municipalityBtn.addActionListener(e -> {
+			departmentBtn.setBackground(new Color(68, 212, 242));
+			municipalityBtn.setBackground(new Color(0, 157, 255));
+			institutionBtn.setBackground(new Color(68, 212, 242));
+		});
+
+		institutionBtn.addActionListener(e -> {
+			departmentBtn.setBackground(new Color(68, 212, 242));
+			municipalityBtn.setBackground(new Color(68, 212, 242));
+			institutionBtn.setBackground(new Color(0, 157, 255));
+		});
 	}
 
 	private JButton createBtn(String content) {
 		JButton button = new JButton(content);
-		button.setBackground(new Color(68, 212, 242));
 		button.setUI(new ShapedButtonUI());
 		return button;
 	}

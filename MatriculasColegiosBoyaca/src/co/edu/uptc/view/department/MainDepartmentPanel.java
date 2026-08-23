@@ -23,8 +23,9 @@ public class MainDepartmentPanel extends JPanel {
 	private JMenuItem byGrade;
 	private JPanel container;
 	private CardLayout cardLayout;
-	private InsertPanel insertPanel;
+	private InsertMunicipalityPanel insertPanel;
 	private ShowByInstitutionsPanel showByInstitutionsPanel;
+	private ShowByGradesPanel showByGradesPanel;
 
 	public MainDepartmentPanel() {
 		initMetadata();
@@ -57,14 +58,15 @@ public class MainDepartmentPanel extends JPanel {
 		menuBar.add(show);
 		container.add(insertPanel, "insert");
 		container.add(showByInstitutionsPanel, "showByInstitutions");
+		container.add(showByGradesPanel, "showByGrades");
 	}
 
 	private void initComponents() {
-		insertMenu = createMenu("Insertar Municipio  ");
-		show = createMenu("Mostrar Municipio");
-		byInstitutions = createMenuItem("Por Instituciones");
-		byGrade = createMenuItem("Por Grados");
-		insertMenuItem = createMenuItem("Insertar Municipio");
+		insertMenu = createMenu("Insertar municipio  ");
+		insertMenuItem = createMenuItem("Insertar municipio");
+		show = createMenu("Mostrar municipio");
+		byInstitutions = createMenuItem("por instituciones");
+		byGrade = createMenuItem("por grados");
 
 		menuBar = new JMenuBar();
 		menuBar.setBackground(new Color(191, 242, 255));
@@ -72,8 +74,9 @@ public class MainDepartmentPanel extends JPanel {
 		cardLayout = new CardLayout();
 		container = new JPanel(cardLayout);
 
-		insertPanel = new InsertPanel();
+		insertPanel = new InsertMunicipalityPanel();
 		showByInstitutionsPanel = new ShowByInstitutionsPanel();
+		showByGradesPanel = new ShowByGradesPanel();
 	}
 
 	private JMenu createMenu(String content) {
@@ -104,7 +107,7 @@ public class MainDepartmentPanel extends JPanel {
 		return byGrade;
 	}
 
-	public InsertPanel getInsertPanel() {
+	public InsertMunicipalityPanel getInsertMunicipalityPanel() {
 		return insertPanel;
 	}
 
@@ -112,4 +115,7 @@ public class MainDepartmentPanel extends JPanel {
 		return showByInstitutionsPanel;
 	}
 
+	public ShowByGradesPanel getShowByGradesPanel() {
+		return showByGradesPanel;
+	}
 }

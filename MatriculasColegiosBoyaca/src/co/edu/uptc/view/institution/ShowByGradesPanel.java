@@ -1,4 +1,4 @@
-package co.edu.uptc.view.department;
+package co.edu.uptc.view.institution;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,18 +16,18 @@ import javax.swing.table.DefaultTableModel;
 
 import co.edu.uptc.structures.SimpleList;
 
-public class ShowByInstitutionsPanel extends JPanel {
+public class ShowByGradesPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private JComboBox<String> municipalities;
-	private JLabel municipalityLbl;
+	private JComboBox<String> campuses;
+	private JLabel campusLbl;
 	private JPanel separator1;
 	private JPanel separator2;
-	private JTable institutionsTable;
+	private JTable gradesTable;
 	private DefaultTableModel tableModel;
 
-	public ShowByInstitutionsPanel() {
+	public ShowByGradesPanel() {
 		initMetadata();
 		initComponents();
 		addComponents();
@@ -44,10 +44,10 @@ public class ShowByInstitutionsPanel extends JPanel {
 		gbc.gridy = 0;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.insets = new Insets(15, 0, 10, 0);
-		add(municipalityLbl, gbc);
+		add(campusLbl, gbc);
 
 		gbc.gridy = 1;
-		add(municipalities, gbc);
+		add(campuses, gbc);
 
 		gbc.gridy = 2;
 		add(separator1, gbc);
@@ -55,7 +55,7 @@ public class ShowByInstitutionsPanel extends JPanel {
 		gbc.gridy = 3;
 		gbc.fill = GridBagConstraints.NONE;
 		gbc.anchor = GridBagConstraints.CENTER;
-		add(new JScrollPane(institutionsTable), gbc);
+		add(new JScrollPane(gradesTable), gbc);
 
 		gbc.gridy = 4;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -63,18 +63,20 @@ public class ShowByInstitutionsPanel extends JPanel {
 	}
 
 	private void initComponents() {
-		municipalities = new JComboBox<String>();
-		municipalityLbl = new JLabel("Seleccione el municipio: ");
-		municipalityLbl.setFont(new Font("Segoe UI", Font.BOLD, 25));
+		campuses = new JComboBox<String>();
+		campusLbl = new JLabel("Seleccione la sede: ");
+		campusLbl.setFont(new Font("Segoe UI", Font.BOLD, 25));
 		separator1 = createSeparator();
 		separator2 = createSeparator();
-		tableModel = new DefaultTableModel(new String[] { "Institución" }, 0);
-		institutionsTable = new JTable(tableModel) {
+		tableModel = new DefaultTableModel(new String[] { "Grado", "Estudiantes" }, 0);
+		gradesTable = new JTable(tableModel) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
+		gradesTable.setRowHeight(33);
+		fillGradesValues();
 	}
 
 	private JPanel createSeparator() {
@@ -84,16 +86,23 @@ public class ShowByInstitutionsPanel extends JPanel {
 		return separator;
 	}
 
-	public void fillTable(SimpleList<String> institutions) {
-		for (String institution : institutions) {
-			tableModel.addRow(new Object[] { institution });
+	public void fillStudentsValues(SimpleList<String> students) {
+		for (int i = 0; i < students.size(); i++) {
+			tableModel.setValueAt((String) students.get(i), i, 0);
 		}
 	}
 
-	public void loadMunicipalities(SimpleList<String> municipalities) {
-		for (int i = 0; i < municipalities.size(); i++) {
-			this.municipalities.addItem(municipalities.get(i));
+	private void fillGradesValues() {
+		String[] grades = new String[] { "Prescolar", "Primero", "Segundo", "Tercero", "Cuarto", "Quinto", "Sexto",
+				"Séptimo", "Octavo", "Noveno", "Décimo", "Once" };
+		for (String grade : grades) {
+			tableModel.addRow(new Object[] { grade, 0 });
 		}
 	}
 
+	public void loadCampuses(SimpleList<String> campuses) {
+		for (int i = 0; i < campuses.size(); i++) {
+			this.campuses.addItem(campuses.get(i));
+		}
+	}
 }

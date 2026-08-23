@@ -1,4 +1,4 @@
-package co.edu.uptc.view.department;
+package co.edu.uptc.view.institution;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 
 import co.edu.uptc.view.ui.ShapedButtonUI;
 
-public class InsertPanel extends JPanel {
+public class InsertCampusPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
@@ -25,7 +25,7 @@ public class InsertPanel extends JPanel {
 	private JPanel separator2;
 	private JButton saveBtn;
 
-	public InsertPanel() {
+	public InsertCampusPanel() {
 		initMetadata();
 		initComponents();
 		addComponents();
@@ -66,7 +66,7 @@ public class InsertPanel extends JPanel {
 
 	private void initComponents() {
 		nameField = createTextField();
-		title = createJLabel("Inserte el nombre del nuevo municipio:");
+		title = createJLabel("Inserte el nombre de la nueva sede:");
 		separator1 = createSeparator();
 		separator2 = createSeparator();
 		saveBtn = createBtn("Guardar");

@@ -73,4 +73,8 @@ public class MainPanel extends JPanel {
 	public MainMunicipalityPanel getMainMunicipalityPanel() {
 		return mainMunicipalityPanel;
 	}
+
+	public OptionsPanel getOptionsPanel() {
+		return optionsPanel;
+	}
 }

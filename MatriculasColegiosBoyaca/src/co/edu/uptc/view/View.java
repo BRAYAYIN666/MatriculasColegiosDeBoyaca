@@ -31,13 +31,54 @@ public class View extends JFrame {
 	}
 
 	private void initListeners() {
+		mainPanel.getOptionsPanel().getDepartmentBtn().addActionListener(e -> {
+			mainPanel.changePanel("department");
+		});
+
 		mainPanel.getMainDepartmentPanel().getByInstitutions().addActionListener(e -> {
 			mainPanel.getMainDepartmentPanel().changePanel("showByInstitutions");
-			mainPanel.getMainDepartmentPanel().getInsertPanel().clearNameField();
+			mainPanel.getMainDepartmentPanel().getInsertMunicipalityPanel().clearNameField();
 		});
 
 		mainPanel.getMainDepartmentPanel().getInsert().addActionListener(e -> {
 			mainPanel.getMainDepartmentPanel().changePanel("insert");
 		});
+
+		mainPanel.getMainDepartmentPanel().getByGrade().addActionListener(e -> {
+			mainPanel.getMainDepartmentPanel().changePanel("showByGrades");
+			mainPanel.getMainDepartmentPanel().getInsertMunicipalityPanel().clearNameField();
+		});
+
+		mainPanel.getOptionsPanel().getMunicipalityBtn().addActionListener(e -> {
+			mainPanel.changePanel("municipality");
+		});
+
+		mainPanel.getMainMunicipalityPanel().getByCampuses().addActionListener(e -> {
+			mainPanel.getMainMunicipalityPanel().changePanel("showByCampuses");
+			mainPanel.getMainMunicipalityPanel().getInsertInstitutionPanel().clearNameField();
+		});
+
+		mainPanel.getMainMunicipalityPanel().getInsert().addActionListener(e -> {
+			mainPanel.getMainMunicipalityPanel().changePanel("insert");
+		});
+
+		mainPanel.getMainMunicipalityPanel().getByGrade().addActionListener(e -> {
+			mainPanel.getMainMunicipalityPanel().changePanel("showByGrades");
+			mainPanel.getMainMunicipalityPanel().getInsertInstitutionPanel().clearNameField();
+		});
+
+		mainPanel.getOptionsPanel().getInstitutionBtn().addActionListener(e -> {
+			mainPanel.changePanel("institution");
+		});
+
+		mainPanel.getMainInstitutionPanel().getInsertMenuItem().addActionListener(e -> {
+			mainPanel.getMainInstitutionPanel().changePanel("insert");
+		});
+
+		mainPanel.getMainInstitutionPanel().getByGrade().addActionListener(e -> {
+			mainPanel.getMainInstitutionPanel().changePanel("showByGrades");
+			mainPanel.getMainInstitutionPanel().getInsertCampusPanel().clearNameField();
+		});
+
 	}
 }
