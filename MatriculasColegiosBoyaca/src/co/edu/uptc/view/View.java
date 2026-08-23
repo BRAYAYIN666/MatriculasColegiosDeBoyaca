@@ -18,11 +18,6 @@ public class View extends JFrame {
 		initMetadata();
 	}
 
-	private void initListeners() {
-		// TODO Auto-generated method stub
-
-	}
-
 	private void initMetadata() {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setExtendedState(MAXIMIZED_BOTH);
@@ -35,4 +30,14 @@ public class View extends JFrame {
 		add(mainPanel);
 	}
 
+	private void initListeners() {
+		mainPanel.getMainDepartmentPanel().getByInstitutions().addActionListener(e -> {
+			mainPanel.getMainDepartmentPanel().changePanel("showByInstitutions");
+			mainPanel.getMainDepartmentPanel().getInsertPanel().clearNameField();
+		});
+
+		mainPanel.getMainDepartmentPanel().getInsert().addActionListener(e -> {
+			mainPanel.getMainDepartmentPanel().changePanel("insert");
+		});
+	}
 }
