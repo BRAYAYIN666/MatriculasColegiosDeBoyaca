@@ -24,7 +24,7 @@ public class MainDepartmentPanel extends JPanel {
 	private JPanel container;
 	private CardLayout cardLayout;
 	private InsertMunicipalityPanel insertPanel;
-	private ShowByInstitutionsPanel showByInstitutionsPanel;
+	private ShowByMunicipalitiesPanel showByMunicipalitiesPanel;
 	private ShowByGradesPanel showByGradesPanel;
 
 	public MainDepartmentPanel() {
@@ -56,7 +56,7 @@ public class MainDepartmentPanel extends JPanel {
 		insertMenu.add(insertMenuItem);
 		menuBar.add(insertMenu);
 		menuBar.add(show);
-		container.add(showByInstitutionsPanel, "showByInstitutions");
+		container.add(showByMunicipalitiesPanel, "showByInstitutions");
 		container.add(insertPanel, "insert");
 		container.add(showByGradesPanel, "showByGrades");
 	}
@@ -75,7 +75,7 @@ public class MainDepartmentPanel extends JPanel {
 		container = new JPanel(cardLayout);
 
 		insertPanel = new InsertMunicipalityPanel();
-		showByInstitutionsPanel = new ShowByInstitutionsPanel();
+		showByMunicipalitiesPanel = new ShowByMunicipalitiesPanel();
 		showByGradesPanel = new ShowByGradesPanel();
 	}
 
@@ -111,8 +111,8 @@ public class MainDepartmentPanel extends JPanel {
 		return insertPanel;
 	}
 
-	public ShowByInstitutionsPanel getShowByInstitutionsPanel() {
-		return showByInstitutionsPanel;
+	public ShowByMunicipalitiesPanel getShowByMunicipalitiesPanel() {
+		return showByMunicipalitiesPanel;
 	}
 
 	public ShowByGradesPanel getShowByGradesPanel() {

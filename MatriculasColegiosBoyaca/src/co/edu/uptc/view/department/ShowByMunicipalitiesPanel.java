@@ -1,4 +1,4 @@
-package co.edu.uptc.view.municipality;
+package co.edu.uptc.view.department;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,18 +16,18 @@ import javax.swing.table.DefaultTableModel;
 
 import co.edu.uptc.structures.SimpleList;
 
-public class ShowByCampusesPanel extends JPanel {
+public class ShowByMunicipalitiesPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private JComboBox<String> campuses;
-	private JLabel campusesLlb;
+	private JComboBox<String> municipalities;
+	private JLabel municipalityLbl;
 	private JPanel separator1;
 	private JPanel separator2;
 	private JTable institutionsTable;
 	private DefaultTableModel tableModel;
 
-	public ShowByCampusesPanel() {
+	public ShowByMunicipalitiesPanel() {
 		initMetadata();
 		initComponents();
 		addComponents();
@@ -44,10 +44,10 @@ public class ShowByCampusesPanel extends JPanel {
 		gbc.gridy = 0;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.insets = new Insets(15, 0, 10, 0);
-		add(campusesLlb, gbc);
+		add(municipalityLbl, gbc);
 
 		gbc.gridy = 1;
-		add(campuses, gbc);
+		add(municipalities, gbc);
 
 		gbc.gridy = 2;
 		add(separator1, gbc);
@@ -63,12 +63,12 @@ public class ShowByCampusesPanel extends JPanel {
 	}
 
 	private void initComponents() {
-		campuses = new JComboBox<String>();
-		campusesLlb = new JLabel("Seleccione la institución: ");
-		campusesLlb.setFont(new Font("Segoe UI", Font.BOLD, 25));
+		municipalities = new JComboBox<String>();
+		municipalityLbl = new JLabel("Seleccione el municipio: ");
+		municipalityLbl.setFont(new Font("Segoe UI", Font.BOLD, 25));
 		separator1 = createSeparator();
 		separator2 = createSeparator();
-		tableModel = new DefaultTableModel(new String[] { "Sede", "Estudiantes" }, 0);
+		tableModel = new DefaultTableModel(new String[] { "Institución", "Estudiantes" }, 0);
 		institutionsTable = new JTable(tableModel) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
@@ -84,17 +84,24 @@ public class ShowByCampusesPanel extends JPanel {
 		return separator;
 	}
 
-	public void fillTable(SimpleList<String> campuses, SimpleList<String> students) {
-		for (int i = 0; i < campuses.size(); i++) {
-			tableModel.addRow(new Object[] { campuses.get(i), students.get(i) });
+	public void fillTable(SimpleList<String> institutions, SimpleList<String> students) {
+		for (int i = 0; i < institutions.size(); i++) {
+			tableModel.addRow(new Object[] { institutions.get(i), students.get(i) });
 		}
-
 	}
 
-	public void loadCampuses(SimpleList<String> campuses) {
-		for (int i = 0; i < campuses.size(); i++) {
-			this.campuses.addItem(campuses.get(i));
+	public void loadMunicipalities(SimpleList<String> municipalities) {
+		for (int i = 0; i < municipalities.size(); i++) {
+			this.municipalities.addItem(municipalities.get(i));
 		}
+	}
+
+	public JComboBox<String> getMunicipalities() {
+		return municipalities;
+	}
+
+	public String getMunicipality() {
+		return (String) municipalities.getSelectedItem();
 	}
 
 }
