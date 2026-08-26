@@ -41,7 +41,7 @@ public class Presenter {
 		for (Campus cam : department.searchMunicipality(municipality).searchInstitution(institution).getCampuses()) {
 			campuses.add(cam.getName());
 		}
-		view.loadCampusesCombo(campuses);
+		view.loadCombos(municipalities);
 	}
 
 	public static void main(String[] args) {
