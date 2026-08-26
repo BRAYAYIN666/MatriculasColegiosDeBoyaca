@@ -41,6 +41,9 @@ public class Presenter {
 		}
 		view.loadCampusesCombo(campuses);
 	}
+	public void loadGradesToTable(SimpleList<String> grades){
+		
+	}
 
 	public static void main(String[] args) {
 		new Presenter();

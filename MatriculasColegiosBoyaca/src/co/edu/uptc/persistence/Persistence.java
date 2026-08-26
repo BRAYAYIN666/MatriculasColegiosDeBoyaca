@@ -2,6 +2,7 @@ package co.edu.uptc.persistence;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.File;
 
 import co.edu.uptc.model.Campus;
 import co.edu.uptc.model.Department;
@@ -11,7 +12,7 @@ import co.edu.uptc.structures.SimpleList;
 
 public class Persistence {
 	
-	private final String FILE_PATH = "resources/Matrícula_Instituciones_Educativas_oficiales_y_no_oficiales_-_DEPARTAMENTO_DE_BOYACÁ_20260822.csv";
+	private final String FILE_PATH = "MatriculasColegiosBoyaca/resources/Matrícula_Instituciones_Educativas_oficiales_y_no_oficiales_-_DEPARTAMENTO_DE_BOYACÁ_20260822.csv";
 	private final String FILTER_YEAR = "2.022";
 
 	public void loadFromFile(Department department) {
