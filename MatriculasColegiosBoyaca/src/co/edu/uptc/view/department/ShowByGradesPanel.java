@@ -105,4 +105,12 @@ public class ShowByGradesPanel extends JPanel {
 			this.municipalities.addItem(municipalities.get(i));
 		}
 	}
+
+	public JComboBox<String> getMunicipalities() {
+		return municipalities;
+	}
+
+	public String getMunicipality() {
+		return (String) municipalities.getSelectedItem();
+	}
 }

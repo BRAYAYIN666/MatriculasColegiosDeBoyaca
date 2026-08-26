@@ -10,6 +10,7 @@ public class View extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private MainPanel mainPanel;
 	private Presenter presenter;
+	private String currentMunicipality;
 
 	public View(Presenter presenter) {
 		super("Matriculas Colegios Boyacá");
@@ -27,6 +28,7 @@ public class View extends JFrame {
 	}
 
 	private void initComponents() {
+		currentMunicipality = "";
 		mainPanel = new MainPanel();
 		add(mainPanel);
 	}
@@ -82,12 +84,35 @@ public class View extends JFrame {
 		});
 
 		mainPanel.getMainDepartmentPanel().getShowByMunicipalitiesPanel().getMunicipalities().addActionListener(e -> {
-			presenter.loadInstitutionsCombos(
-					mainPanel.getMainDepartmentPanel().getShowByMunicipalitiesPanel().getMunicipality());
+			currentMunicipality = mainPanel.getMainDepartmentPanel().getShowByMunicipalitiesPanel().getMunicipality();
+			if (currentMunicipality != null && !currentMunicipality.isEmpty()) {
+				presenter.loadInstitutionsCombos(currentMunicipality);
+			}
 		});
-		
-//		mainPanel.getMainInstitutionPanel().get
 
+		mainPanel.getMainDepartmentPanel().getShowByGradesPanel().getMunicipalities().addActionListener(e -> {
+			currentMunicipality = mainPanel.getMainDepartmentPanel().getShowByGradesPanel().getMunicipality();
+			if (currentMunicipality != null && !currentMunicipality.isEmpty()) {
+				presenter.loadInstitutionsCombos(currentMunicipality);
+			}
+		});
+
+		mainPanel.getMainMunicipalityPanel().getShowByGradesPanel().getInstitutions().addActionListener(e -> {
+			String selectedInstitution = mainPanel.getMainMunicipalityPanel().getShowByGradesPanel().getInstitution();
+			if (selectedInstitution != null && !selectedInstitution.isEmpty() && currentMunicipality != null
+					&& !currentMunicipality.isEmpty()) {
+				presenter.loadCampusesCombos(selectedInstitution, currentMunicipality);
+			}
+		});
+
+		mainPanel.getMainMunicipalityPanel().getShowByInstitutionsPanel().getInstitutions().addActionListener(e -> {
+			String selectedInstitution = mainPanel.getMainMunicipalityPanel().getShowByInstitutionsPanel()
+					.getInstitution();
+			if (selectedInstitution != null && !selectedInstitution.isEmpty() && currentMunicipality != null
+					&& !currentMunicipality.isEmpty()) {
+				presenter.loadCampusesCombos(selectedInstitution, currentMunicipality);
+			}
+		});
 	}
 
 	public void loadMunicipalityCombos(SimpleList<String> municipalities) {
