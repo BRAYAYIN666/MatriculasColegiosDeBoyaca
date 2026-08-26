@@ -8,7 +8,6 @@ import java.util.ListIterator;
 public class DoubleList<E> implements List<E> {
 	private DoubleNode<E> head;
 
-
 	public DoubleList() {
 		this.head = null;
 	}
@@ -17,7 +16,7 @@ public class DoubleList<E> implements List<E> {
 	public int size() {
 		int i = 0;
 		DoubleNode<E> aux = head;
-		while(aux != null) {
+		while (aux != null) {
 			i++;
 			aux = aux.getNext();
 		}
@@ -31,8 +30,8 @@ public class DoubleList<E> implements List<E> {
 
 	@Override
 	public boolean contains(Object o) {
-		DoubleNode <E> aux = head;
-		if (o==null ? aux==null : o.equals(aux)) {
+		DoubleNode<E> aux = head;
+		if (o == null ? aux == null : o.equals(aux)) {
 			aux = aux.getNext();
 			return true;
 		}
@@ -46,20 +45,17 @@ public class DoubleList<E> implements List<E> {
 
 			@Override
 			public boolean hasNext() {
-				if(temporalNode.getNext() != null){
-					return true;
-				}
-				return false;
+				return temporalNode != null;
 			}
 
 			@Override
 			public E next() {
-				if(!hasNext()){
-					return temporalNode.getValue();
+				if (!hasNext()) {
+					throw new java.util.NoSuchElementException();
 				}
-				E outro = temporalNode.getValue();
+				E value = temporalNode.getValue();
 				temporalNode = temporalNode.getNext();
-				return outro;
+				return value;
 			}
 		};
 		return iterator;
@@ -70,7 +66,7 @@ public class DoubleList<E> implements List<E> {
 		int size = size();
 		Object[] array = new Object[size];
 		DoubleNode<E> aux = head;
-		for(int i = 0; i < size; i++){
+		for (int i = 0; i < size; i++) {
 			array[i] = aux.getValue();
 			aux = aux.getNext();
 		}
@@ -107,37 +103,40 @@ public class DoubleList<E> implements List<E> {
 
 	@Override
 	public boolean containsAll(Collection<?> c) {
-		if (c == null) new NullPointerException();
+		if (c == null)
+			new NullPointerException();
 
 		for (Object object : c) {
-			if (object == null) throw new NullPointerException();
+			if (object == null)
+				throw new NullPointerException();
 		}
 
 		for (Object object : c) {
-			if(!contains(object)) return false;
+			if (!contains(object))
+				return false;
 		}
 
 		return true;
 	}
 
-    /**
-     * Agrega todos los elementos de una colección al final de esta lista.
-     * <p>
-     *
-     * @param c colección que se quiere agregar a esta lista
-     * @return {@code true} si los elementos de la colección se agregaron;
-     * {@code false} si la colección está vacía
-     */
-    @Override
-    public boolean addAll(Collection<? extends E> c) {
-        if (c.isEmpty()) {
-            return false;
-        }
-        for (E element : c) {
-            add(element);
-        }
-        return true;
-    }
+	/**
+	 * Agrega todos los elementos de una colección al final de esta lista.
+	 * <p>
+	 *
+	 * @param c colección que se quiere agregar a esta lista
+	 * @return {@code true} si los elementos de la colección se agregaron;
+	 *         {@code false} si la colección está vacía
+	 */
+	@Override
+	public boolean addAll(Collection<? extends E> c) {
+		if (c.isEmpty()) {
+			return false;
+		}
+		for (E element : c) {
+			add(element);
+		}
+		return true;
+	}
 
 	@Override
 	public boolean addAll(int index, Collection<? extends E> c) {
@@ -208,7 +207,7 @@ public class DoubleList<E> implements List<E> {
 
 				if (previous != null) {
 					previous.setNext(next);
-				}else{
+				} else {
 					head = next;
 				}
 
@@ -229,8 +228,8 @@ public class DoubleList<E> implements List<E> {
 
 	@Override
 	public E get(int index) throws IndexOutOfBoundsException {
-		DoubleNode <E> current = head;
-		for(int i =0; i<index; i++){
+		DoubleNode<E> current = head;
+		for (int i = 0; i < index; i++) {
 			current = current.getNext();
 		}
 		return current.getValue();
@@ -240,8 +239,8 @@ public class DoubleList<E> implements List<E> {
 	public E set(int index, E element) {
 		DoubleNode<E> current = head;
 		int counter = 0;
-		while(current != null){
-			if(counter == index){
+		while (current != null) {
+			if (counter == index) {
 				E replaced = current.getValue();
 				current.setValue(element);
 				return replaced;
@@ -285,32 +284,29 @@ public class DoubleList<E> implements List<E> {
 		if (index >= size() || index < 0) {
 			throw new IndexOutOfBoundsException();
 		}
-		
+
 		DoubleNode<E> positionNow = head;
 		E value = null;
 		int indexNow = 0;
 
-		while (positionNow != null ) {
-			if (indexNow == index){
+		while (positionNow != null) {
+			if (indexNow == index) {
 				value = positionNow.getValue();
-				if (positionNow.getPrevious() == null){
+				if (positionNow.getPrevious() == null) {
 					head = positionNow.getNext();
-					if (head != null){
+					if (head != null) {
 						head.setPrevious(null);
 					}
 					return value;
-				}
-				else if (positionNow.getNext() != null) {
+				} else if (positionNow.getNext() != null) {
 					positionNow.getPrevious().setNext(positionNow.getNext());
 					positionNow.getNext().setPrevious(positionNow.getPrevious());
 					return value;
-				}
-				else {
+				} else {
 					positionNow.getPrevious().setNext(null);
 					return value;
 				}
-			}
-			else {
+			} else {
 				positionNow = positionNow.getNext();
 				indexNow++;
 			}
@@ -334,7 +330,7 @@ public class DoubleList<E> implements List<E> {
 
 	@Override
 	public int lastIndexOf(Object o) {
-		
+
 		DoubleNode<E> actual = head;
 		int i = 0;
 		while (actual != null) {
@@ -428,11 +424,12 @@ public class DoubleList<E> implements List<E> {
 				}
 
 				if (lastOperationWasNext) {
+					current = after;
 					previous = before;
 					nextIndex--;
 				} else {
 					current = after;
-					previous = before;
+					previous = (before != null) ? before.getPrevious() : null;
 				}
 				lastReturned = null;
 			}
@@ -450,14 +447,17 @@ public class DoubleList<E> implements List<E> {
 				DoubleNode<E> newNode = new DoubleNode<E>(e);
 				newNode.setPrevious(previous);
 				newNode.setNext(current);
+
 				if (previous == null) {
 					head = newNode;
 				} else {
 					previous.setNext(newNode);
 				}
+
 				if (current != null) {
 					current.setPrevious(newNode);
 				}
+
 				previous = newNode;
 				nextIndex++;
 				lastReturned = null;
@@ -473,25 +473,24 @@ public class DoubleList<E> implements List<E> {
 
 	@Override
 	public List<E> subList(int fromIndex, int toIndex) {
-	    if (fromIndex < 0 || toIndex > size() || fromIndex > toIndex) {
-	        throw new IndexOutOfBoundsException("Rango no es válido");
-	    }
+		if (fromIndex < 0 || toIndex > size() || fromIndex > toIndex) {
+			throw new IndexOutOfBoundsException("Rango no es válido");
+		}
 
-	    DoubleList<E> result = new DoubleList<>();
-	    DoubleNode<E> aux = head;
-	    
-	    for (int i = 0; i < fromIndex; i++) {
-	        aux = aux.getNext();
-	    }
-	    
-	    for (int i = fromIndex; i < toIndex; i++) {
-	        result.add(aux.getValue()); 
-	        aux = aux.getNext();
-	    }
-	    
-	    return result;
+		DoubleList<E> result = new DoubleList<>();
+		DoubleNode<E> aux = head;
+
+		for (int i = 0; i < fromIndex; i++) {
+			aux = aux.getNext();
+		}
+
+		for (int i = fromIndex; i < toIndex; i++) {
+			result.add(aux.getValue());
+			aux = aux.getNext();
+		}
+
+		return result;
 	}
-	
 
 	@Override
 	public String toString() {

@@ -1,56 +1,64 @@
 package co.edu.uptc.model;
 
+import co.edu.uptc.persistence.Persistence;
 import co.edu.uptc.structures.SimpleList;
 
 public class Department {
 
-    private final String NAME = "BOYACA";
+	private final String NAME = "BOYACA";
 	private SimpleList<Municipality> municipalities = new SimpleList<>();
 
 	public Department() {
 		this.municipalities = new SimpleList<>();
+		createObjects();
 	}
 
-    public void addMunicipality(Municipality municipality) {
-        municipalities.add(municipality);
-    }
+	private void createObjects() {
+		Persistence persitence = new Persistence();
+		persitence.loadFromFile(this);
+	}
 
-    public int getTotalStudents() {
-        int total = 0;
-        for (Municipality municipality : municipalities) {
-            total += municipality.getTotalStudents();
-        }
-        return total;
-    }
+	public int getTotalStudents() {
+		int total = 0;
+		for (Municipality municipality : municipalities) {
+			total += municipality.getTotalStudents();
+		}
+		return total;
+	}
 
-    public int getTotalByGrade(int position) {
-        int total = 0;
-        for (Municipality municipality : municipalities) {
-            total += municipality.getTotalByGrade(position);
-        }
-        return total;
-    }
+	public int getTotalByGrade(int position) {
+		int total = 0;
+		for (Municipality municipality : municipalities) {
+			total += municipality.getTotalByGrade(position);
+		}
+		return total;
+	}
 
-    public Municipality getMunicipality(String name) {
-        for (Municipality municipality : municipalities) {
-            if (municipality.getName().equalsIgnoreCase(name)) {
-                return municipality;
-            }
-        }
-        return null;
-    }
+	public Municipality searchMunicipality(String munName) {
+		for (Municipality municipality : municipalities) {
+			if (municipality.getName().equals(munName)) {
+				return municipality;
+			}
+		}
+		return null;
+	}
 
-    public String getName() {
-        return NAME;
-    }
+	public void addMunicipality(Municipality municipality) {
+		if (searchMunicipality(municipality.getName()) == null) {
+			municipalities.add(municipality);
+		}
+	}
 
-    public SimpleList<Municipality> getMunicipalities() {
-        return municipalities;
-    }
+	public String getName() {
+		return NAME;
+	}
 
-    public void setMunicipalities(
-            SimpleList<Municipality> municipalities) {
-        this.municipalities = municipalities;
-    }
+	public SimpleList<Municipality> getMunicipalities() {
+		return municipalities;
+	}
+
+	public void setMunicipalities(SimpleList<Municipality> municipalities) {
+		this.municipalities = municipalities;
+	}
 
 }

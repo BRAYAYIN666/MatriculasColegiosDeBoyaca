@@ -31,7 +31,7 @@ public class Municipality {
         return total;
     }
 
-    public Institution getInstitution(String name) {
+    public Institution searchInstitution(String name) {
         for (Institution institution : institutions) {
             if (institution.getName().equalsIgnoreCase(name)) {
                 return institution;
