@@ -6,7 +6,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import co.edu.uptc.model.Campus;
 import co.edu.uptc.model.Department;
+import co.edu.uptc.model.Institution;
+import co.edu.uptc.structures.SimpleList;
 
 public class Persistence {
 
@@ -45,13 +48,7 @@ public class Persistence {
 //		taxCalculator.addProperty(aux);
 //	}
 //	
-	private void createCampus(String[] tuition) {
-		String name = tuition[5];
-		String[] grades = new String[12];
-		for (int i = 0; i < 12; i++) {
-			grades[i] = tuition[i + 8];
-		}
-	}
+	
 
 	private ArrayList<String[]> readAllProperties() throws IOException {
 		ArrayList<String[]> allProperties = new ArrayList<String[]>();
