@@ -3,26 +3,37 @@ package co.edu.uptc.model;
 import co.edu.uptc.structures.SimpleList;
 
 public class Institution {
-    
+
     private String name;
-    private SimpleList<Campus> campus = new SimpleList<>();
-    
+    private SimpleList<Campus> campuses;
+
     public Institution(String name) {
         this.name = name;
-        this.campus = new SimpleList<>();
+        this.campuses = new SimpleList<>();
     }
 
-    public void addCampus(Campus newCampus){
-        campus.add(newCampus);
+    public void addCampus(Campus campus) {
+        campuses.add(campus);
     }
-    public int getTotalByInstitution(){
+
+    public int getTotalStudents() {
         int total = 0;
-        for (Campus campus2 : campus) {
-            total+= campus2.getTotalByCampus();
+        for (Campus campus : campuses) {
+            total += campus.getTotalByCampus();
         }
+
         return total;
     }
-    
+
+        public int getTotalByGrade(int position) {
+        int total = 0;
+        for (Campus campus : campuses) {
+            total += campus.getStudentsByGrade(position);
+        }
+
+        return total;
+    }
+
     public String getName() {
         return name;
     }
@@ -31,12 +42,11 @@ public class Institution {
         this.name = name;
     }
 
-    public SimpleList<Campus> getCampus() {
-        return campus;
+    public SimpleList<Campus> getCampuses() {
+        return campuses;
     }
 
-    public void setCampus(SimpleList<Campus> campus) {
-        this.campus = campus;
+    public void setCampuses(SimpleList<Campus> campuses) {
+        this.campuses = campuses;
     }
-
 }
