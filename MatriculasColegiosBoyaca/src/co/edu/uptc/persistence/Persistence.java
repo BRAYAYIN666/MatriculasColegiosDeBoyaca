@@ -1,68 +1,73 @@
 package co.edu.uptc.persistence;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 
 import co.edu.uptc.model.Campus;
 import co.edu.uptc.model.Department;
 import co.edu.uptc.model.Institution;
-import co.edu.uptc.structures.SimpleList;
+import co.edu.uptc.model.Municipality;
 
 public class Persistence {
 
-	private Department department;
-	private BufferedReader bufferedReader;
-	private static final String FILE_PATH = "resources/Matrícula_Instituciones_Educativas_oficiales_y_no_oficiales_-_DEPARTAMENTO_DE_BOYACÁ_20260822.csv";
+	private final String FILE_PATH = "data/Matrícula_Instituciones_Educativas_oficiales_y_no_oficiales_-_DEPARTAMENTO_DE_BOYACÁ_20260822.csv";
+	private final String FILTER_YEAR = "2.022";
 
-	public Persistence(Department department) throws FileNotFoundException {
-		this.department = department;
-		bufferedReader = new BufferedReader(new FileReader(FILE_PATH));
-	}
+	public void loadFromFile(Department department) {
+		String currentLine = null;
+		String split = ",(?=(?:[^\"]\"[^\"]\")[^\"]$)";
 
-	private boolean filterProperties(String[] property) {
-		String municipality = property[1];
-		String use = property[4];
-		String area = property[5];
-		return municipality.equals("15001") && (use.equals("D") || use.equals("A") || use.equals("J"))
-				&& !area.equals("0");
-	}
+		try {
+			FileReader reader = new FileReader(FILE_PATH);
+			BufferedReader buffer = new BufferedReader(reader);
+			buffer.readLine();
+			while ((currentLine = buffer.readLine()) != null) {
+				String[] data = currentLine.split(split);
+				int fieldIndex = 0;
 
-//	private void createProperty(String property[]) {
-//		String cadastralNumber = property[2];
-//		String addres = property[3];
-//		int area = Integer.parseInt(property[5]);
+				while (fieldIndex < data.length) {
+					data[fieldIndex] = data[fieldIndex].trim().replace("\"", "");
+					fieldIndex++;
+				}
+
+				String munName = data[1].trim();
+				String instName = data[3].trim();
+				String campusCode = data[4].trim();
+				String campusName = data[5].trim();
+
+				int[] grades = new int[19 - 8 + 1];
+				int column = 8;
+				int gradeIndex = 0;
+				while (column <= 19) {
+					if (data[column] != null && !data[column].isEmpty()) {
+						grades[gradeIndex] = Integer.parseInt(data[column]);
+					} else {
+						grades[gradeIndex] = 0;
+					}
+					column++;
+					gradeIndex++;
+				}
+				if (FILTER_YEAR.equals(data[0])) {
+//					Municipality currentMunicipality = department.searchMunicipality(munName);
+//					if (currentMunicipality == null) {
+//						currentMunicipality = new Municipality(munName);
+//						department.addMunicipality(currentMunicipality);
+//					}
 //
-//		Use use = null;
-//		switch (property[4]) {
-//		case "D", "A" -> use = Use.RESIDENTIAL;
-//		case "J" -> use = Use.COMMERCIAL;
-//		}
+//					Institution currentInstitution = currentMunicipality.searchInstitution(instName);
+//					if (currentInstitution == null) {
+//						currentInstitution = new Institution(instName);
+//						currentMunicipality.insertInstitution(currentInstitution);
+//					}
 //
-//		double price = area * 1000000.0;
-//		double valuation = taxCalculator.calculateValuationFee(price);
-//		byte stratum = (byte) (Math.random() * taxCalculator.getStratums().size() + 1);
-//		Property aux = new Property(cadastralNumber, addres, area, stratum, use, valuation, price);
-//		taxCalculator.addProperty(aux);
-//	}
-//	
-	
-
-	private ArrayList<String[]> readAllProperties() throws IOException {
-		ArrayList<String[]> allProperties = new ArrayList<String[]>();
-		String property;
-		bufferedReader.readLine();
-		while ((property = bufferedReader.readLine()) != null) {
-			allProperties.add(property.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"));
+//					Campus newCampus = new Campus(campusCode, campusName, grades);
+//					currentInstitution.addCampus(newCampus);
+				}
+			}
+			reader.close();
+			buffer.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		bufferedReader.close();
-		return allProperties;
 	}
-
-//	private void createProperties() throws IOException {
-//		readAllProperties().stream().filter(x -> filterProperties(x)).forEach(y -> createProperty(y));
-//	}
-
 }

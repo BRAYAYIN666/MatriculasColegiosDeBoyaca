@@ -14,7 +14,7 @@ public class Department {
 		municipalities.add(municipality);
 	}
 
-	public String getName() {
+	public String getNAME() {
 		return NAME;
 	}
 
