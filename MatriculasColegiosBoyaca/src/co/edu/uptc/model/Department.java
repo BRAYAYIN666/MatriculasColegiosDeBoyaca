@@ -44,9 +44,9 @@ public class Department {
         return NAME;
     }
 
-    public SimpleList<Municipality> getMunicipalities() {
-        return municipalities;
-    }
+	public SimpleList<Municipality> getMunicipalities() {
+		return municipalities;
+	}
 
     public void setMunicipalities(
             SimpleList<Municipality> municipalities) {
