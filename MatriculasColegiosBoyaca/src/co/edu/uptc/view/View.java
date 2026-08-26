@@ -85,8 +85,16 @@ public class View extends JFrame {
 			presenter.loadInstitutionsCombos(
 					mainPanel.getMainDepartmentPanel().getShowByMunicipalitiesPanel().getMunicipality());
 		});
-		
-//		mainPanel.getMainInstitutionPanel().get
+
+		mainPanel.getMainDepartmentPanel().getShowByGradesPanel().getMunicipalities().addActionListener(e -> {
+			presenter.loadInstitutionsCombos(
+					mainPanel.getMainDepartmentPanel().getShowByMunicipalitiesPanel().getMunicipality());
+		});
+
+		mainPanel.getMainMunicipalityPanel().getShowByInstitutionsPanel().getInstitutions().addActionListener(e -> {
+			presenter.loadInstitutionsCombos(
+					mainPanel.getMainMunicipalityPanel().getShowByInstitutionsPanel().getSelectedInstitution());
+		});
 
 	}
 

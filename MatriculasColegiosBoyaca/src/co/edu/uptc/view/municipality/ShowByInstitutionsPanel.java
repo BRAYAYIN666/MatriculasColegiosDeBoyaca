@@ -21,7 +21,7 @@ public class ShowByInstitutionsPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private JComboBox<String> institutions;
-	private JLabel campusesLlb;
+	private JLabel institutionsLlb;
 	private JPanel separator1;
 	private JPanel separator2;
 	private JTable institutionsTable;
@@ -44,7 +44,7 @@ public class ShowByInstitutionsPanel extends JPanel {
 		gbc.gridy = 0;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.insets = new Insets(15, 0, 10, 0);
-		add(campusesLlb, gbc);
+		add(institutionsLlb, gbc);
 
 		gbc.gridy = 1;
 		add(institutions, gbc);
@@ -64,8 +64,8 @@ public class ShowByInstitutionsPanel extends JPanel {
 
 	private void initComponents() {
 		institutions = new JComboBox<String>();
-		campusesLlb = new JLabel("Seleccione la institución: ");
-		campusesLlb.setFont(new Font("Segoe UI", Font.BOLD, 25));
+		institutionsLlb = new JLabel("Seleccione la institución: ");
+		institutionsLlb.setFont(new Font("Segoe UI", Font.BOLD, 25));
 		separator1 = createSeparator();
 		separator2 = createSeparator();
 		tableModel = new DefaultTableModel(new String[] { "Sede", "Estudiantes" }, 0);
@@ -96,6 +96,14 @@ public class ShowByInstitutionsPanel extends JPanel {
 		for (int i = 0; i < campuses.size(); i++) {
 			this.institutions.addItem(campuses.get(i));
 		}
+	}
+
+	public JComboBox<String> getInstitutions() {
+		return institutions;
+	}
+
+	public String getSelectedInstitution() {
+		return (String) institutions.getSelectedItem();
 	}
 
 }

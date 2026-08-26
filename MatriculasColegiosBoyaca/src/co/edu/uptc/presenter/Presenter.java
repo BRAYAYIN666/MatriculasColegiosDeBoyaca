@@ -20,8 +20,6 @@ public class Presenter {
 
 	public void loadMunicipalitiesCombo() {
 		SimpleList<String> municipalities = new SimpleList<String>();
-//		SimpleList<String> campuses = new SimpleList<String>();
-
 		for (Municipality mun : department.getMunicipalities()) {
 			municipalities.add(mun.getName());
 		}
