@@ -103,4 +103,17 @@ public class View extends JFrame {
 	public void loadCampusesCombo(SimpleList<String> campuses) {
 		mainPanel.getMainInstitutionPanel().getShowByGradesPanel().loadCampuses(campuses);
 	}
+
+	public void loadGradesTable(SimpleList<String> grades){
+		mainPanel.getMainDepartmentPanel().getShowByGradesPanel().fillStudentsValues(grades);
+		mainPanel.getMainMunicipalityPanel().getShowByGradesPanel().fillStudentsValues(grades);
+		mainPanel.getMainInstitutionPanel().getShowByGradesPanel().fillStudentsValues(grades);
+	}
+	public void loadInstitutionsTable(SimpleList<String> institutions, SimpleList<String> cantidad){
+		mainPanel.getMainDepartmentPanel().getShowByMunicipalitiesPanel().fillTable(institutions, cantidad);
+	}
+
+	public void loadCampusTable(SimpleList<String> campus, SimpleList<String> cantidad){
+		mainPanel.getMainMunicipalityPanel().getShowByInstitutionsPanel().fillTable(campus, cantidad);
+	}
 }
