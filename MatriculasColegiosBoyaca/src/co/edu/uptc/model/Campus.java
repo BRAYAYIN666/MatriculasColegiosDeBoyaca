@@ -1,28 +1,28 @@
 package co.edu.uptc.model;
 
-import java.util.ArrayList;
+import co.edu.uptc.structures.SimpleList;
 
 public class Campus {
 
     private String name;
-    private ArrayList<Grade> grades = new ArrayList<>();
+    private SimpleList<String> grades = new SimpleList<>();
     
     public Campus(String name, int code) {
         this.name = name;
-        this.grades = new ArrayList<>();
+        this.grades = new SimpleList<>();
     }
 
     public int getTotalByCampus() {
         int total = 0;
         if (grades != null) {
-            for (Grade grade : grades) {
+            for (String grade : grades) {
                 if (grade != null) {
-                    total += grade.getNumberStudents();
+                    total += Integer.parseInt(grade);
                 }
             }
         }
         return total;
-    }
+	}
 
     public String getName() {
         return name;
@@ -32,11 +32,11 @@ public class Campus {
         this.name = name;
     }
 
-    public ArrayList<Grade> getGrades() {
+    public SimpleList<String> getGrades() {
         return grades;
     }
 
-    public void setGrades(ArrayList<Grade> grades) {
+    public void setGrades(SimpleList<String> grades) {
         this.grades = grades;
     }
 }
