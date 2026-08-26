@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import co.edu.uptc.view.ui.ShapedButtonUI;
@@ -15,6 +16,8 @@ public class OptionsPanel extends JPanel {
 	private JButton departmentBtn;
 	private JButton municipalityBtn;
 	private JButton institutionBtn;
+	private JLabel currentMunicipalityLbl;
+	private JLabel currentInstitutionLbl;
 
 	public OptionsPanel() {
 		initMetadata();

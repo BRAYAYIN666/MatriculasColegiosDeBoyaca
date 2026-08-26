@@ -52,8 +52,8 @@ public class MainInstitutionPanel extends JPanel {
 		insertMenu.add(insertMenuItem);
 		menuBar.add(insertMenu);
 		menuBar.add(show);
-		container.add(insertCampusPanel, "insert");
 		container.add(showByGradesPanel, "showByGrades");
+		container.add(insertCampusPanel, "insert");
 	}
 
 	private void initComponents() {

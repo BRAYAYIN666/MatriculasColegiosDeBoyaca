@@ -68,7 +68,7 @@ public class ShowByCampusesPanel extends JPanel {
 		campusesLlb.setFont(new Font("Segoe UI", Font.BOLD, 25));
 		separator1 = createSeparator();
 		separator2 = createSeparator();
-		tableModel = new DefaultTableModel(new String[] { "Sede" }, 0);
+		tableModel = new DefaultTableModel(new String[] { "Sede", "Estudiantes" }, 0);
 		institutionsTable = new JTable(tableModel) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
@@ -84,10 +84,11 @@ public class ShowByCampusesPanel extends JPanel {
 		return separator;
 	}
 
-	public void fillTable(SimpleList<String> campuses) {
-		for (String campus : campuses) {
-			tableModel.addRow(new Object[] { campus });
+	public void fillTable(SimpleList<String> campuses, SimpleList<String> students) {
+		for (int i = 0; i < campuses.size(); i++) {
+			tableModel.addRow(new Object[] { campuses.get(i), students.get(i) });
 		}
+
 	}
 
 	public void loadCampuses(SimpleList<String> campuses) {

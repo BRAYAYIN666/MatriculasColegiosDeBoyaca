@@ -56,8 +56,8 @@ public class MainMunicipalityPanel extends JPanel {
 		insertMenu.add(insertMenuItem);
 		menuBar.add(insertMenu);
 		menuBar.add(show);
-		container.add(insertInstitutionPanel, "insert");
 		container.add(showByCampusesPanel, "showByCampuses");
+		container.add(insertInstitutionPanel, "insert");
 		container.add(showByGradesPanel, "showByGrades");
 	}
 

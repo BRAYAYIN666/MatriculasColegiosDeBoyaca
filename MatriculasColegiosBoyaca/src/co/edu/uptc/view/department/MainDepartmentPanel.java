@@ -56,8 +56,8 @@ public class MainDepartmentPanel extends JPanel {
 		insertMenu.add(insertMenuItem);
 		menuBar.add(insertMenu);
 		menuBar.add(show);
-		container.add(insertPanel, "insert");
 		container.add(showByInstitutionsPanel, "showByInstitutions");
+		container.add(insertPanel, "insert");
 		container.add(showByGradesPanel, "showByGrades");
 	}
 
