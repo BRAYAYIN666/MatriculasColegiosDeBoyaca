@@ -5,33 +5,37 @@ import co.edu.uptc.structures.SimpleList;
 public class Campus {
 
     private String name;
-    private String code;
-    private SimpleList<Integer> grades;
+    private SimpleList<String> grades = new SimpleList<>();
 
-    public Campus(String name, String code) {
+    public Campus(String name, SimpleList<String> grades) {
         this.name = name;
-        this.code = code;
-        this.grades = new SimpleList<>();
-    }
-
-    public void addGrade(int numberStudents) {
-        grades.add(numberStudents);
+        this.grades = grades;
     }
 
     public int getTotalByCampus() {
         int total = 0;
-
-        for (Integer numberStudents : grades) {
-            if (numberStudents != null) {
-                total += numberStudents;
+        if (grades != null) {
+            for (String grade : grades) {
+                if (grade != null && !grade.isBlank()) {
+                    total += Integer.parseInt(grade);
+                }
             }
         }
-
         return total;
     }
 
     public int getStudentsByGrade(int position) {
-        return grades.get(position);
+        int aux = 0;
+        for (String grade : grades) {
+            if (aux == position) {
+                if (grade == null || grade.isBlank()) {
+                    return 0;
+                }
+                return Integer.parseInt(grade);
+            }
+            aux++;
+        }
+        return 0;
     }
 
     public String getName() {
@@ -42,19 +46,11 @@ public class Campus {
         this.name = name;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public SimpleList<Integer> getGrades() {
+    public SimpleList<String> getGrades() {
         return grades;
     }
 
-    public void setGrades(SimpleList<Integer> grades) {
+    public void setGrades(SimpleList<String> grades) {
         this.grades = grades;
     }
 }

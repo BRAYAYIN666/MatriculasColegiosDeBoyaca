@@ -5,38 +5,39 @@ import co.edu.uptc.structures.DoubleList;
 public class Municipality {
 
     private String name;
-    private DoubleList<Institution> institutions;
+    private DoubleList<Institution> institutions = new DoubleList<>();
 
     public Municipality(String name) {
         this.name = name;
-        this.institutions = new DoubleList<>();
     }
 
-    // Agregar una nueva institución
     public void addInstitution(Institution institution) {
         institutions.add(institution);
     }
 
-    // Buscar una institución por nombre
+    public int getTotalStudents() {
+        int total = 0;
+        for (Institution institution : institutions) {
+            total += institution.getTotalStudents();
+        }
+        return total;
+    }
+
+    public int getTotalByGrade(int position) {
+        int total = 0;
+        for (Institution institution : institutions) {
+            total += institution.getTotalByGrade(position);
+        }
+        return total;
+    }
+
     public Institution getInstitution(String name) {
         for (Institution institution : institutions) {
             if (institution.getName().equalsIgnoreCase(name)) {
                 return institution;
             }
         }
-
         return null;
-    }
-
-    // Total de estudiantes matriculados en el municipio
-    public int getTotalStudents() {
-        int total = 0;
-
-        for (Institution institution : institutions) {
-            total += institution.getTotalStudents();
-        }
-
-        return total;
     }
 
     public String getName() {
@@ -51,7 +52,9 @@ public class Municipality {
         return institutions;
     }
 
-    public void setInstitutions(DoubleList<Institution> institutions) {
+    public void setInstitutions(
+            DoubleList<Institution> institutions) {
+
         this.institutions = institutions;
     }
 }

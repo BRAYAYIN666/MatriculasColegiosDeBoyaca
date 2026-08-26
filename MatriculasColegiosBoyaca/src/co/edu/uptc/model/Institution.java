@@ -5,11 +5,10 @@ import co.edu.uptc.structures.SimpleList;
 public class Institution {
 
     private String name;
-    private SimpleList<Campus> campuses;
+    private SimpleList<Campus> campuses = new SimpleList<>();
 
     public Institution(String name) {
         this.name = name;
-        this.campuses = new SimpleList<>();
     }
 
     public void addCampus(Campus campus) {
@@ -21,17 +20,24 @@ public class Institution {
         for (Campus campus : campuses) {
             total += campus.getTotalByCampus();
         }
-
         return total;
     }
 
-        public int getTotalByGrade(int position) {
+    public int getTotalByGrade(int position) {
         int total = 0;
         for (Campus campus : campuses) {
             total += campus.getStudentsByGrade(position);
         }
-
         return total;
+    }
+
+    public Campus getCampus(String name) {
+        for (Campus campus : campuses) {
+            if (campus.getName().equalsIgnoreCase(name)) {
+                return campus;
+            }
+        }
+        return null;
     }
 
     public String getName() {
