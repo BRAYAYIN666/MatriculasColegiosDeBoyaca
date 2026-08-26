@@ -1,6 +1,7 @@
 package co.edu.uptc.model;
 
 import co.edu.uptc.persistence.Persistence;
+import co.edu.uptc.structures.DoubleList;
 import co.edu.uptc.structures.SimpleList;
 
 public class Department {
@@ -18,6 +19,26 @@ public class Department {
 		persitence.loadFromFile(this);
 	}
 
+	//Retorna una lista (string) de las Instituciones con la cantidad de estudiantes respectivamente.
+    public SimpleList<String> totalByInstitution(Municipality municipality){
+        SimpleList<String> totalInstitution = new SimpleList<>();
+        DoubleList<Institution> institutions = municipality.getInstitutions();
+        for (Institution insti : institutions) {
+            totalInstitution.add(String.valueOf(insti.getTotalStudents()));
+        }
+        return totalInstitution;
+    }
+    //Retorna una lista de los cursos con la cantidad de estudiantes del municipio respectivamente.
+    public SimpleList<String> totalByGrades (Municipality municipality){
+        SimpleList<String> totalInstitution = new SimpleList<>();
+        DoubleList<Institution> institutions = municipality.getInstitutions();
+        for (Institution insti : institutions) {
+			int i = 0;
+            totalInstitution.add(String.valueOf(insti.getTotalByGrade(i)));
+			i++;
+        }
+        return totalInstitution;
+    }
 	public int getTotalStudents() {
 		int total = 0;
 		for (Municipality municipality : municipalities) {
