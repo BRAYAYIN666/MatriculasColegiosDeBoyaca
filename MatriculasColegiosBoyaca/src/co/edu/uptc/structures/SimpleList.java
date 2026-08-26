@@ -1,11 +1,11 @@
 package co.edu.uptc.structures;
 
+import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 
 public class SimpleList<E> implements Collection<E>, List<E> {
 	private Node<E> head;
@@ -42,46 +42,24 @@ public class SimpleList<E> implements Collection<E>, List<E> {
 		return false;
 	}
 
-	/**
-	 * Permite recorrer los elementos de la lista uno por uno.
-	 *
-	 * @return un iterador para recorrer la lista
-	 */
 	@Override
 	public Iterator<E> iterator() {
 		return new Iterator<E>() {
 
-			// Guarda el nodo que se está recorriendo actualmente.
-			// Al comenzar, apunta al primer nodo de la lista.
 			private Node<E> actual = head;
 
-			/**
-			 * Comprueba si todavía hay un elemento por recorrer.
-			 *
-			 * @return true si actual apunta a un nodo,
-			 *         false si ya se llegó al final de la lista
-			 */
 			@Override
 			public boolean hasNext() {
 				return actual != null;
 			}
 
-			/**
-			 * Obtiene el elemento del nodo actual y pasa al siguiente nodo.
-			 *
-			 * @return el valor del nodo actual
-			 * @throws NoSuchElementException si ya no quedan elementos
-			 */
 			@Override
 			public E next() {
 				if (actual == null) {
 					throw new NoSuchElementException();
 				}
 
-				// Guardamos el valor del nodo actual.
 				E value = actual.getValue();
-
-				// Pasamos al siguiente nodo de la lista.
 				actual = actual.getNext();
 
 				return value;
@@ -92,9 +70,9 @@ public class SimpleList<E> implements Collection<E>, List<E> {
 	@Override
 	public Object[] toArray() {
 		int size = size();
-		Object[] array = new Object[ size ];
+		Object[] array = new Object[size];
 		Node<E> aux = head;
-		for (int i=0; i< size; i++){
+		for (int i = 0; i < size; i++) {
 			array[i] = aux.getValue();
 			aux = aux.getNext();
 		}
@@ -102,16 +80,16 @@ public class SimpleList<E> implements Collection<E>, List<E> {
 		return array;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T[] toArray(T[] a) {
-		int size = size(); 
+		int size = size();
 		if (a.length < size) {
-			a = (T[]) Array.newInstance(
-        	a.getClass().getComponentType(), size);
+			a = (T[]) Array.newInstance(a.getClass().getComponentType(), size);
 		}
 
 		int i = 0;
-		for (Object element : this) { 
+		for (Object element : this) {
 			a[i++] = (T) element;
 		}
 
@@ -138,15 +116,18 @@ public class SimpleList<E> implements Collection<E>, List<E> {
 
 	@Override
 	public boolean remove(Object o) {
-		if (isEmpty()) return false;
-		if (o == null) throw new NullPointerException();
-		if (o.getClass() != head.getValue().getClass()) throw new ClassCastException();
-		
+		if (isEmpty())
+			return false;
+		if (o == null)
+			throw new NullPointerException();
+		if (o.getClass() != head.getValue().getClass())
+			throw new ClassCastException();
+
 		if (head.getValue().equals(o)) {
 			head = head.getNext();
 			return true;
 		}
-		
+
 		Node<E> prev = head;
 		Node<E> next = head.getNext();
 
@@ -164,9 +145,10 @@ public class SimpleList<E> implements Collection<E>, List<E> {
 	}
 
 	@Override
-	public boolean containsAll(Collection<?> c) throws UnsupportedOperationException, ClassCastException, NullPointerException, IllegalArgumentException{
+	public boolean containsAll(Collection<?> c)
+			throws UnsupportedOperationException, ClassCastException, NullPointerException, IllegalArgumentException {
 		for (Object object : c) {
-			if(!contains(object)){
+			if (!contains(object)) {
 				return false;
 			}
 		}
@@ -188,31 +170,31 @@ public class SimpleList<E> implements Collection<E>, List<E> {
 	public boolean addAll(int index, Collection<? extends E> c) {
 		boolean isAdded = false;
 
-        if (index >= 0 && index <= this.size()) { 
-            if (!c.isEmpty()) {
-                Node<E> predecessor = null;
-                Node<E> successor = this.head;
-                for (int i = 0; i < index; i++) {
-                    predecessor = successor;
-                    successor = successor.getNext();
-                }
-                Node<E> current = predecessor;
-                for (E element : c) {
-                    Node<E> newNode = new Node<>(element);
-                    if (current == null) {
-                        this.head = newNode;
-                    } else {
-                        current.setNext(newNode);
-                    }
-                    current = newNode; 
-                }
-                if (current != null) {
-                    current.setNext(successor);
-                }
-                isAdded = true;
-            }
-        }
-        return isAdded;
+		if (index >= 0 && index <= this.size()) {
+			if (!c.isEmpty()) {
+				Node<E> predecessor = null;
+				Node<E> successor = this.head;
+				for (int i = 0; i < index; i++) {
+					predecessor = successor;
+					successor = successor.getNext();
+				}
+				Node<E> current = predecessor;
+				for (E element : c) {
+					Node<E> newNode = new Node<>(element);
+					if (current == null) {
+						this.head = newNode;
+					} else {
+						current.setNext(newNode);
+					}
+					current = newNode;
+				}
+				if (current != null) {
+					current.setNext(successor);
+				}
+				isAdded = true;
+			}
+		}
+		return isAdded;
 	}
 
 	@Override
@@ -233,29 +215,24 @@ public class SimpleList<E> implements Collection<E>, List<E> {
 
 	@Override
 	public boolean retainAll(Collection<?> c) {
-
 		boolean result = false;
 		Node<E> current = head;
 		Node<E> previous = null;
 
 		while (current != null) {
-
 			if (c.contains(current.getValue())) {
-
 				previous = current;
 				current = current.getNext();
-
 			} else {
 				result = true;
 			}
 			if (previous == null) {
 				head = current.getNext();
-			}else{ 
+			} else {
 				previous.setNext(current.getNext());
 			}
 
-			current =current.getNext();
-
+			current = current.getNext();
 		}
 
 		return result;
@@ -278,13 +255,12 @@ public class SimpleList<E> implements Collection<E>, List<E> {
 		while (currentNode != null) {
 			if (currentIndex == index) {
 				return currentNode.getValue();
-			}
-			else {
-				currentIndex ++;
+			} else {
+				currentIndex++;
 				currentNode = currentNode.getNext();
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -303,7 +279,7 @@ public class SimpleList<E> implements Collection<E>, List<E> {
 			head = newNode;
 			return;
 		}
-		
+
 		Node<E> aux = head;
 		for (int i = 0; i < index - 1; i++) {
 			aux = aux.getNext();
@@ -315,7 +291,7 @@ public class SimpleList<E> implements Collection<E>, List<E> {
 
 	@Override
 	public E remove(int index) {
-		int count=0;
+		int count = 0;
 		Node<E> aux = head;
 
 		while (aux != null) {
@@ -349,8 +325,8 @@ public class SimpleList<E> implements Collection<E>, List<E> {
 	public int indexOf(Object o) {
 		Node<E> aux = head;
 		int counter = 0;
-		while(aux != null){
-			if(aux.getValue().equals(o)){
+		while (aux != null) {
+			if (o == null ? aux.getValue() == null : o.equals(aux.getValue())) {
 				return counter;
 			}
 			aux = aux.getNext();
@@ -361,11 +337,11 @@ public class SimpleList<E> implements Collection<E>, List<E> {
 
 	@Override
 	public int lastIndexOf(Object o) {
-		Node<E> actual = head;	
+		Node<E> actual = head;
 		int i = -1;
 		int j = 0;
-		while(actual != null){
-			if(actual.getValue().equals(o)){
+		while (actual != null) {
+			if (o == null ? actual.getValue() == null : o.equals(actual.getValue())) {
 				i = j;
 			}
 			j++;
@@ -374,63 +350,68 @@ public class SimpleList<E> implements Collection<E>, List<E> {
 		return i;
 	}
 
-
 	@Override
 	public ListIterator<E> listIterator() {
+		return new ListIterator<E>() {
 
-	    ListIterator<E> iterator = new ListIterator<E>() {
+			Node<E> actual = head;
 
-	        Node<E> actual = head;
+			@Override
+			public boolean hasNext() {
+				return actual != null;
+			}
 
-	        @Override
-	        public boolean hasNext() {
-	            return actual != null;
-	        }
+			@Override
+			public E next() {
+				E element = actual.getValue();
+				actual = actual.getNext();
+				return element;
+			}
 
-	        @Override
-	        public E next() {
-	            E element = actual.getValue();
-	            actual = actual.getNext();
-	            return element;
-	        }
+			@Override
+			public boolean hasPrevious() {
+				return false;
+			}
 
-	        @Override
-	        public boolean hasPrevious() {
-	            return false;
-	        }
+			@Override
+			public E previous() {
+				return null;
+			}
 
-	        @Override
-	        public E previous() {
-	            return null;
-	        }
+			@Override
+			public int nextIndex() {
+				return 0;
+			}
 
-	        @Override
-	        public int nextIndex() {
-	            return 0;
-	        }
+			@Override
+			public int previousIndex() {
+				return -1;
+			}
 
-	        @Override
-	        public int previousIndex() {
-	            return -1;
-	        }
+			@Override
+			public void remove() {
+			}
 
-	        @Override
-	        public void remove() {
-	        }
+			@Override
+			public void set(E e) {
+			}
 
-	        @Override
-	        public void set(E e) {
-	        }
-
-	        @Override
-	        public void add(E e) {
-	        }
-	    };
-
-	    return iterator;
+			@Override
+			public void add(E e) {
+			}
+		};
 	}
 
-
+	// Método auxiliar para buscar nodos por su índice interno
+	private Node<E> getNode(int index) {
+		if (index < 0 || index >= size())
+			return null;
+		Node<E> current = head;
+		for (int i = 0; i < index; i++) {
+			current = current.getNext();
+		}
+		return current;
+	}
 
 	@Override
 	public ListIterator<E> listIterator(int index) {
@@ -439,7 +420,7 @@ public class SimpleList<E> implements Collection<E>, List<E> {
 		}
 		return new ListIterator<E>() {
 			private int currentIndex = index;
-			private Node<E> currentNode = (Node<E>) get(currentIndex);
+			private Node<E> currentNode = getNode(currentIndex);
 			private Node<E> lastNode = null;
 
 			@Override
@@ -470,7 +451,7 @@ public class SimpleList<E> implements Collection<E>, List<E> {
 					throw new NoSuchElementException();
 				}
 				currentIndex--;
-				currentNode = (Node<E>) get(currentIndex);
+				currentNode = getNode(currentIndex);
 				lastNode = currentNode;
 				return currentNode.getValue();
 			}
@@ -500,7 +481,7 @@ public class SimpleList<E> implements Collection<E>, List<E> {
 					} else {
 						lastNodeIndex = currentIndex - 1;
 					}
-					previous = (Node<E>) get(lastNodeIndex - 1);
+					previous = getNode(lastNodeIndex - 1);
 				}
 				if (previous == null) {
 					head = lastNode.getNext();
@@ -520,9 +501,7 @@ public class SimpleList<E> implements Collection<E>, List<E> {
 				if (lastNode == null) {
 					throw new IllegalArgumentException();
 				}
-
 				lastNode.setValue(e);
-
 			}
 
 			@Override
@@ -532,17 +511,16 @@ public class SimpleList<E> implements Collection<E>, List<E> {
 					newNode.setNext(head);
 					head = newNode;
 				} else {
-					Node<E> previous = (Node<E>) get(currentIndex - 1);
+					Node<E> previous = getNode(currentIndex - 1);
 					previous.setNext(newNode);
 					newNode.setNext(currentNode);
 				}
 				currentIndex++;
 				lastNode = null;
-
 			}
 		};
 	}
-	
+
 	@Override
 	public List<E> subList(int fromIndex, int toIndex) {
 		// TODO Auto-generated method stub
@@ -553,5 +531,4 @@ public class SimpleList<E> implements Collection<E>, List<E> {
 	public String toString() {
 		return "SimpleList [head=" + head + "]";
 	}
-
 }
