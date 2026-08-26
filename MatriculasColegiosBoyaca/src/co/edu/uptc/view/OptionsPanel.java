@@ -1,13 +1,11 @@
 package co.edu.uptc.view;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import co.edu.uptc.view.ui.ShapedButtonUI;
@@ -17,8 +15,6 @@ public class OptionsPanel extends JPanel {
 	private JButton departmentBtn;
 	private JButton municipalityBtn;
 	private JButton institutionBtn;
-	private JLabel currentMunicipalityLbl;
-	private JLabel currentInstitutionLbl;
 
 	public OptionsPanel() {
 		initMetadata();
@@ -40,16 +36,8 @@ public class OptionsPanel extends JPanel {
 
 		gbc.gridy = 2;
 		gbc.anchor = GridBagConstraints.NORTH;
-		add(institutionBtn, gbc);
-
-		gbc.gridy = 3;
 		gbc.weighty = 1.0;
-		gbc.anchor = GridBagConstraints.SOUTH;
-		add(currentMunicipalityLbl, gbc);
-
-		gbc.gridy = 4;
-		gbc.anchor = GridBagConstraints.NORTH;
-		add(currentInstitutionLbl, gbc);
+		add(institutionBtn, gbc);
 	}
 
 	private void initComponents() {
@@ -61,9 +49,6 @@ public class OptionsPanel extends JPanel {
 
 		institutionBtn = createBtn("Institución");
 		institutionBtn.setBackground(new Color(68, 212, 242));
-
-		currentInstitutionLbl = createJLabel("Institución Actual: ");
-		currentMunicipalityLbl = createJLabel("Municipio Actual: ");
 	}
 
 	private void initListeners() {
@@ -86,12 +71,6 @@ public class OptionsPanel extends JPanel {
 		});
 	}
 
-	private JLabel createJLabel(String content) {
-		JLabel label = new JLabel(content);
-		label.setFont(new Font("Segoe UI", Font.BOLD, 17));
-		return label;
-	}
-
 	private JButton createBtn(String content) {
 		JButton button = new JButton(content);
 		button.setUI(new ShapedButtonUI());
@@ -101,14 +80,6 @@ public class OptionsPanel extends JPanel {
 	private void initMetadata() {
 		this.setBackground(new Color(177, 236, 250));
 		this.setLayout(new GridBagLayout());
-	}
-
-	public void setCurrentlMunicipality(String municipality) {
-		currentMunicipalityLbl.setText("Municipio Actual: " + municipality);
-	}
-
-	public void setCurrentInstitution(String institution) {
-		currentInstitutionLbl.setText("Institución Actual: " + institution);
 	}
 
 	public JButton getDepartmentBtn() {

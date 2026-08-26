@@ -91,10 +91,10 @@ public class ShowByInstitutionsPanel extends JPanel {
 
 	}
 
-	public void loadInstitutions(SimpleList<String> campuses) {
+	public void loadInstitutions(SimpleList<String> institutions) {
 		this.institutions.removeAllItems();
-		for (int i = 0; i < campuses.size(); i++) {
-			this.institutions.addItem(campuses.get(i));
+		for (int i = 0; i < institutions.size(); i++) {
+			this.institutions.addItem(institutions.get(i));
 		}
 	}
 
@@ -102,7 +102,7 @@ public class ShowByInstitutionsPanel extends JPanel {
 		return institutions;
 	}
 
-	public String getSelectedInstitution() {
+	public String getInstitution() {
 		return (String) institutions.getSelectedItem();
 	}
 
