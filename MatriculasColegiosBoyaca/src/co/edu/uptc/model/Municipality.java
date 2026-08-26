@@ -1,6 +1,7 @@
 package co.edu.uptc.model;
 
 import co.edu.uptc.structures.DoubleList;
+import co.edu.uptc.structures.SimpleList;
 
 public class Municipality {
 
@@ -38,6 +39,26 @@ public class Municipality {
             }
         }
         return null;
+    }
+    //Retorna una lista de los Campus con la cantidad de estudiantes respectivamente.
+    public SimpleList<String> totalByCampus(Institution institution){
+        SimpleList<String> totalCampus = new SimpleList<>();
+        SimpleList<Campus> campus = institution.getCampuses();
+        for (Campus tempCampus : campus) {
+            totalCampus.add(String.valueOf(tempCampus.getTotalByCampus()));
+        }
+        return totalCampus;
+    }
+    //Retorna una lista de los cursos con la cantidad de estudiantes de la institucion respectivamente.
+    public SimpleList<String> totalByGrades (Institution institution){
+        SimpleList <String> totalGrades = new SimpleList<>();
+        SimpleList<Campus> campus = institution.getCampuses();
+        for (Campus tempCampus : campus) {
+            int i = 0;
+            totalGrades.add(String.valueOf(tempCampus.getStudentsByGrade(i)));
+            i++;
+        }
+        return totalGrades;
     }
 
     public String getName() {

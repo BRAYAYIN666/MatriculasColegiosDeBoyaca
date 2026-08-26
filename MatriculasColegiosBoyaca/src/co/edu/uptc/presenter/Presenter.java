@@ -32,7 +32,6 @@ public class Presenter {
 			municipalities.add(mun.getName());
 		}
 		view.loadCombos(municipalities);
-		
 	}
 
 	public static void main(String[] args) {

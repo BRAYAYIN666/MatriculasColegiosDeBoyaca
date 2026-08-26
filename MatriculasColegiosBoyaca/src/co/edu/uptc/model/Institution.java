@@ -14,7 +14,7 @@ public class Institution {
     public void addCampus(Campus campus) {
         campuses.add(campus);
     }
-
+    
     public int getTotalStudents() {
         int total = 0;
         for (Campus campus : campuses) {
