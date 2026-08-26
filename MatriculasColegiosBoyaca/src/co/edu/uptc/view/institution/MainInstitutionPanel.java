@@ -99,4 +99,8 @@ public class MainInstitutionPanel extends JPanel {
 	public InsertCampusPanel getInsertCampusPanel() {
 		return insertCampusPanel;
 	}
+
+	public ShowByGradesPanel getShowByGradesPanel() {
+		return showByGradesPanel;
+	}
 }

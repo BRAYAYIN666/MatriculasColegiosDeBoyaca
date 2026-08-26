@@ -101,6 +101,7 @@ public class ShowByGradesPanel extends JPanel {
 	}
 
 	public void loadCampuses(SimpleList<String> campuses) {
+		this.campuses.removeAllItems();
 		for (int i = 0; i < campuses.size(); i++) {
 			this.campuses.addItem(campuses.get(i));
 		}

@@ -3,6 +3,7 @@ package co.edu.uptc.view;
 import javax.swing.JFrame;
 
 import co.edu.uptc.presenter.Presenter;
+import co.edu.uptc.structures.SimpleList;
 
 public class View extends JFrame {
 
@@ -80,5 +81,26 @@ public class View extends JFrame {
 			mainPanel.getMainInstitutionPanel().getInsertCampusPanel().clearNameField();
 		});
 
+		mainPanel.getMainDepartmentPanel().getShowByMunicipalitiesPanel().getMunicipalities().addActionListener(e -> {
+			presenter.loadInstitutionsCombos(
+					mainPanel.getMainDepartmentPanel().getShowByMunicipalitiesPanel().getMunicipality());
+		});
+		
+//		mainPanel.getMainInstitutionPanel().get
+
+	}
+
+	public void loadMunicipalityCombos(SimpleList<String> municipalities) {
+		mainPanel.getMainDepartmentPanel().getShowByMunicipalitiesPanel().loadMunicipalities(municipalities);
+		mainPanel.getMainDepartmentPanel().getShowByGradesPanel().loadMunicipalities(municipalities);
+	}
+
+	public void loadInstitutionsCombos(SimpleList<String> institutions) {
+		mainPanel.getMainMunicipalityPanel().getShowByInstitutionsPanel().loadInstitutions(institutions);
+		mainPanel.getMainMunicipalityPanel().getShowByGradesPanel().loadInstitutions(institutions);
+	}
+
+	public void loadCampusesCombo(SimpleList<String> campuses) {
+		mainPanel.getMainInstitutionPanel().getShowByGradesPanel().loadCampuses(campuses);
 	}
 }

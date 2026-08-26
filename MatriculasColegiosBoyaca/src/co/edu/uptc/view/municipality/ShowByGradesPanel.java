@@ -20,7 +20,7 @@ public class ShowByGradesPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private JComboBox<String> campuses;
+	private JComboBox<String> institutions;
 	private JLabel campusLbl;
 	private JPanel separator1;
 	private JPanel separator2;
@@ -47,7 +47,7 @@ public class ShowByGradesPanel extends JPanel {
 		add(campusLbl, gbc);
 
 		gbc.gridy = 1;
-		add(campuses, gbc);
+		add(institutions, gbc);
 
 		gbc.gridy = 2;
 		add(separator1, gbc);
@@ -63,7 +63,7 @@ public class ShowByGradesPanel extends JPanel {
 	}
 
 	private void initComponents() {
-		campuses = new JComboBox<String>();
+		institutions = new JComboBox<String>();
 		campusLbl = new JLabel("Seleccione la institución: ");
 		campusLbl.setFont(new Font("Segoe UI", Font.BOLD, 25));
 		separator1 = createSeparator();
@@ -100,9 +100,10 @@ public class ShowByGradesPanel extends JPanel {
 		}
 	}
 
-	public void loadCampuses(SimpleList<String> campuses) {
+	public void loadInstitutions(SimpleList<String> campuses) {
+		this.institutions.removeAllItems();
 		for (int i = 0; i < campuses.size(); i++) {
-			this.campuses.addItem(campuses.get(i));
+			this.institutions.addItem(campuses.get(i));
 		}
 	}
 }

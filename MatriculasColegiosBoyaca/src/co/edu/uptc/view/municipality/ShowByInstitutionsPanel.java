@@ -1,4 +1,4 @@
-package co.edu.uptc.view.department;
+package co.edu.uptc.view.municipality;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -20,8 +20,8 @@ public class ShowByInstitutionsPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private JComboBox<String> municipalities;
-	private JLabel municipalityLbl;
+	private JComboBox<String> institutions;
+	private JLabel campusesLlb;
 	private JPanel separator1;
 	private JPanel separator2;
 	private JTable institutionsTable;
@@ -44,10 +44,10 @@ public class ShowByInstitutionsPanel extends JPanel {
 		gbc.gridy = 0;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.insets = new Insets(15, 0, 10, 0);
-		add(municipalityLbl, gbc);
+		add(campusesLlb, gbc);
 
 		gbc.gridy = 1;
-		add(municipalities, gbc);
+		add(institutions, gbc);
 
 		gbc.gridy = 2;
 		add(separator1, gbc);
@@ -63,12 +63,12 @@ public class ShowByInstitutionsPanel extends JPanel {
 	}
 
 	private void initComponents() {
-		municipalities = new JComboBox<String>();
-		municipalityLbl = new JLabel("Seleccione el municipio: ");
-		municipalityLbl.setFont(new Font("Segoe UI", Font.BOLD, 25));
+		institutions = new JComboBox<String>();
+		campusesLlb = new JLabel("Seleccione la institución: ");
+		campusesLlb.setFont(new Font("Segoe UI", Font.BOLD, 25));
 		separator1 = createSeparator();
 		separator2 = createSeparator();
-		tableModel = new DefaultTableModel(new String[] { "Institución", "Estudiantes" }, 0);
+		tableModel = new DefaultTableModel(new String[] { "Sede", "Estudiantes" }, 0);
 		institutionsTable = new JTable(tableModel) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
@@ -84,15 +84,17 @@ public class ShowByInstitutionsPanel extends JPanel {
 		return separator;
 	}
 
-	public void fillTable(SimpleList<String> institutions, SimpleList<String> students) {
-		for (int i = 0; i < institutions.size(); i++) {
-			tableModel.addRow(new Object[] { institutions.get(i), students.get(i) });
+	public void fillTable(SimpleList<String> campuses, SimpleList<String> students) {
+		for (int i = 0; i < campuses.size(); i++) {
+			tableModel.addRow(new Object[] { campuses.get(i), students.get(i) });
 		}
+
 	}
 
-	public void loadMunicipalities(SimpleList<String> municipalities) {
-		for (int i = 0; i < municipalities.size(); i++) {
-			this.municipalities.addItem(municipalities.get(i));
+	public void loadInstitutions(SimpleList<String> campuses) {
+		this.institutions.removeAllItems();
+		for (int i = 0; i < campuses.size(); i++) {
+			this.institutions.addItem(campuses.get(i));
 		}
 	}
 
