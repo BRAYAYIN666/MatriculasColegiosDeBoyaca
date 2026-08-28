@@ -42,6 +42,27 @@ public class Presenter {
 		view.loadCampusesCombo(campuses);
 	}
 
+	public void createMunicipality(String municipality) {
+		department.addMunicipality(new Municipality(municipality));
+		loadMunicipalitiesCombo();
+	}
+
+	public void createInstitution(String institution, String municipality) {
+		department.searchMunicipality(municipality).addInstitution(new Institution(institution));
+		loadInstitutionsCombos(municipality);
+	}
+
+	public void createCampuse(String campus, String institution, String municipality) {
+		department.searchMunicipality(municipality).searchInstitution(institution).addCampus(new Campus(campus, null));
+		loadCampusesCombos(institution, municipality);
+	}
+
+	public void loadGradesByMunicipality(String municipality) {
+		view.loadGradesTable(department.totalGradesByMunicipality(municipality));
+	}
+
+	// SIRVE LA FUNCIONALIDAD DE INSERTAR MUNICIPIO, INSTITUCION y SEDE
+
 	public static void main(String[] args) {
 		new Presenter();
 	}

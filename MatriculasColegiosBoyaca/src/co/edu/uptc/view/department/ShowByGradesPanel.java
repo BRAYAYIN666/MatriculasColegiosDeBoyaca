@@ -88,7 +88,7 @@ public class ShowByGradesPanel extends JPanel {
 
 	public void fillStudentsValues(SimpleList<String> students) {
 		for (int i = 0; i < students.size(); i++) {
-			tableModel.setValueAt((String) students.get(i), i, 0);
+			tableModel.setValueAt((String) students.get(i), i, 1);
 		}
 	}
 
@@ -101,6 +101,7 @@ public class ShowByGradesPanel extends JPanel {
 	}
 
 	public void loadMunicipalities(SimpleList<String> municipalities) {
+		this.municipalities.removeAllItems();
 		for (int i = 0; i < municipalities.size(); i++) {
 			this.municipalities.addItem(municipalities.get(i));
 		}

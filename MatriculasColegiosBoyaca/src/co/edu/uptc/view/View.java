@@ -11,6 +11,7 @@ public class View extends JFrame {
 	private MainPanel mainPanel;
 	private Presenter presenter;
 	private String currentMunicipality;
+	private String currentInstitution;
 
 	public View(Presenter presenter) {
 		super("Matriculas Colegios Boyacá");
@@ -29,6 +30,7 @@ public class View extends JFrame {
 
 	private void initComponents() {
 		currentMunicipality = "";
+		currentInstitution = "";
 		mainPanel = new MainPanel();
 		add(mainPanel);
 	}
@@ -94,24 +96,38 @@ public class View extends JFrame {
 			currentMunicipality = mainPanel.getMainDepartmentPanel().getShowByGradesPanel().getMunicipality();
 			if (currentMunicipality != null && !currentMunicipality.isEmpty()) {
 				presenter.loadInstitutionsCombos(currentMunicipality);
+				presenter.loadGradesByMunicipality(currentMunicipality);
 			}
 		});
 
 		mainPanel.getMainMunicipalityPanel().getShowByGradesPanel().getInstitutions().addActionListener(e -> {
-			String selectedInstitution = mainPanel.getMainMunicipalityPanel().getShowByGradesPanel().getInstitution();
-			if (selectedInstitution != null && !selectedInstitution.isEmpty() && currentMunicipality != null
+			currentInstitution = mainPanel.getMainMunicipalityPanel().getShowByGradesPanel().getInstitution();
+			if (currentInstitution != null && !currentInstitution.isEmpty() && currentMunicipality != null
 					&& !currentMunicipality.isEmpty()) {
-				presenter.loadCampusesCombos(selectedInstitution, currentMunicipality);
+				presenter.loadCampusesCombos(currentInstitution, currentMunicipality);
 			}
 		});
 
 		mainPanel.getMainMunicipalityPanel().getShowByInstitutionsPanel().getInstitutions().addActionListener(e -> {
-			String selectedInstitution = mainPanel.getMainMunicipalityPanel().getShowByInstitutionsPanel()
-					.getInstitution();
-			if (selectedInstitution != null && !selectedInstitution.isEmpty() && currentMunicipality != null
+			currentInstitution = mainPanel.getMainMunicipalityPanel().getShowByInstitutionsPanel().getInstitution();
+			if (currentInstitution != null && !currentInstitution.isEmpty() && currentMunicipality != null
 					&& !currentMunicipality.isEmpty()) {
-				presenter.loadCampusesCombos(selectedInstitution, currentMunicipality);
+				presenter.loadCampusesCombos(currentInstitution, currentMunicipality);
 			}
+		});
+
+		mainPanel.getMainDepartmentPanel().getInsertMunicipalityPanel().getSaveBtn().addActionListener(e -> {
+			presenter.createMunicipality(mainPanel.getMainDepartmentPanel().getInsertMunicipalityPanel().getName());
+		});
+
+		mainPanel.getMainMunicipalityPanel().getInsertInstitutionPanel().getSaveBtn().addActionListener(e -> {
+			presenter.createInstitution(mainPanel.getMainMunicipalityPanel().getInsertInstitutionPanel().getName(),
+					currentMunicipality);
+		});
+
+		mainPanel.getMainInstitutionPanel().getInsertCampusPanel().getSaveBtn().addActionListener(e -> {
+			presenter.createCampuse(mainPanel.getMainInstitutionPanel().getInsertCampusPanel().getName(),
+					currentInstitution, currentMunicipality);
 		});
 	}
 
@@ -127,5 +143,19 @@ public class View extends JFrame {
 
 	public void loadCampusesCombo(SimpleList<String> campuses) {
 		mainPanel.getMainInstitutionPanel().getShowByGradesPanel().loadCampuses(campuses);
+	}
+
+	public void loadGradesTable(SimpleList<String> grades) {
+		mainPanel.getMainDepartmentPanel().getShowByGradesPanel().fillStudentsValues(grades);
+		mainPanel.getMainMunicipalityPanel().getShowByGradesPanel().fillStudentsValues(grades);
+		mainPanel.getMainInstitutionPanel().getShowByGradesPanel().fillStudentsValues(grades);
+	}
+
+	public void loadInstitutionsTable(SimpleList<String> institutions, SimpleList<String> cantidad) {
+		mainPanel.getMainDepartmentPanel().getShowByMunicipalitiesPanel().fillTable(institutions, cantidad);
+	}
+
+	public void loadCampusTable(SimpleList<String> campus, SimpleList<String> cantidad) {
+		mainPanel.getMainMunicipalityPanel().getShowByInstitutionsPanel().fillTable(campus, cantidad);
 	}
 }
